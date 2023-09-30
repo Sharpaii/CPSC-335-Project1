@@ -13,9 +13,23 @@ def combineSchedules(*inputs):
             output.append(schedule)
     return output
 
+def convertSchedules(input):
+    for item in input:
+        temp = []
+        for time in item:
+            if time[1] == ":":
+                temp.append(int(time[0]))
+                temp.append(int(time[2:4]))
+            else:
+                temp.append(int(time[0:2]))
+                temp.append(int(time[3:5]))
+        input[input.index(item)] = temp
+
+def insertSort(input):
+    pass
 
 def sortSchedules(input):
-    input.sort()
+    input.sort() # Change to insert sort
     temp = []
     for item in reversed(input):
         if item[0][1] == ":":
@@ -24,10 +38,16 @@ def sortSchedules(input):
         input.insert(0, item)
 
 def updateSchedules(input):
+    pass
+
+def debugPrint(input):
     for item in input:
-        # Needs to be done
         print(item)
+    print("\n");
 
 busy = combineSchedules(person1_busy_schedule, person1_work_hours, person2_busy_schedule)
 sortSchedules(busy)
+debugPrint(busy)
+convertSchedules(busy)
 updateSchedules(busy)
+debugPrint(busy)
