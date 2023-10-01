@@ -1,4 +1,19 @@
 from datetime import datetime
+import ast
+
+def getInput(fileName):
+    with open(fileName, 'r') as file:
+        input_lines = [line.strip() for line in file]
+    fixed = []
+    for i in input_lines:
+        if i.strip():
+            fixed.append(i)
+    return fixed
+
+def reformatString(input):
+    fixed = input.replace("':'", "','")
+    fixed = ast.literal_eval(fixed)
+    return fixed
 def combineSchedules(*inputs):
     output = []
     for schedule in inputs:
@@ -48,7 +63,6 @@ def mergeSchedules(input, type):
 
     return(updatedSchedule)
 
-
 def getFreeSchedules(free, busy):
     output = free
     index = 0
@@ -57,7 +71,6 @@ def getFreeSchedules(free, busy):
             minTime = datetime.strptime(output[index][0], '%H:%M')
             maxTime = datetime.strptime(output[index][1], '%H:%M')
             startBlock = datetime.strptime(busy[j][0], '%H:%M')
-            endBlock = datetime.strptime(busy[j][1], "%H:%M")
             if (startBlock == minTime):
                 output[index] = [busy[j][1], free[i][1]]
 
@@ -76,70 +89,39 @@ def verifyDuration(input, duration):
             output.append(input[i])
     return output
 
-def debugPrint(input):
-    for item in input:
-        print(item)
-    print("\n");
+def main(inp):
+    # Overwrite if existing output.txt exists
+    f = open("output.txt", "w")
+    f.write("")
+    f.close()
 
-def main():
-    busy = combineSchedules(person1_busy_Schedule, person2_busy_Schedule)
-    work = combineSchedules(person1_work_hours, person2_work_hours)
+    repeat = len(inp)/5
+    for i in range(int(repeat)):
+        person1_busy_Schedule = reformatString(inp[0 + 5*i])
+        person1_work_hours = reformatString(inp[1 + 5*i])
+        person2_busy_Schedule = reformatString(inp[2 + 5*i])
+        person2_work_hours = reformatString(inp[3 + 5*i])
+        duration_of_meeting = reformatString(inp[4 + 5*i])
 
-    busy = bubbleSort(busy)
-    work = bubbleSort(work)
+        busy = combineSchedules(person1_busy_Schedule, person2_busy_Schedule)
+        work = combineSchedules(person1_work_hours, person2_work_hours)
 
-    # print("All Busy Times")
-    # debugPrint(busy)
-    # print("All Work Times")
-    # debugPrint(work)
+        busy = bubbleSort(busy)
+        work = bubbleSort(work)
 
-    busy = mergeSchedules(busy, "busy")
-    work = mergeSchedules(work, "work")
+        busy = mergeSchedules(busy, "busy")
+        work = mergeSchedules(work, "work")
 
-    # print("Condensed Busy Times")
-    # debugPrint(busy)
-    # print("Condensed Work Times")
-    # debugPrint(work)
+        work = getFreeSchedules(work, busy)
+        work = verifyDuration(work, duration_of_meeting)
 
-    work = getFreeSchedules(work, busy)
-    work = verifyDuration(work, duration_of_meeting)
-    print("Get Free Work Times")
-    debugPrint(work)
+        # Append Case i in output.txt
+        f = open("output.txt", "a")
+        f.write("Case: " + str(i + 1) + "\n" + str(work) + "\n\n")
+        f.close()
 
-# TEST CASE 1
-person1_busy_Schedule = [['12:00', '13:00'], ['16:00', '18:00']]
-person1_work_hours = ['9:00', '19:00']
-person2_busy_Schedule = [['9:00','10:30'], ['12:20', '14:30'], ['14:30', '15:00'], ['16:00', '17:00']]
-person2_work_hours = ['9:00', '18:30']
-duration_of_meeting = 30
+    # Read output.txt in console
+    f = open("output.txt", "r")
+    print(f.read())
 
-main()
-
-# TEST CASE 2
-person1_busy_Schedule = [['12:00','13:00'],['14:00','15:00']]
-person1_work_hours = ['9:00','19:00']
-person2_busy_Schedule = [['10:15','11:00'],['11:30','12:45'],['14:00','16:00']]
-person2_work_hours = ['9:00','18:30']
-duration_of_meeting = 30
-
-main()
-
-
-# TEST CASE 3
-person1_busy_Schedule = [['12:00','13:00'],['14:00','15:00']]
-person1_work_hours = ['9:00','19:00']
-person2_busy_Schedule = [['10:15','11:00'],['11:30','12:45'],['14:00','16:00']]
-person2_work_hours = ['9:00','18:30']
-duration_of_meeting = 120
-
-main()
-
-
-# TEST CASE 4
-person1_busy_Schedule = [['10:00','13:00'],['14:00','15:00']]
-person1_work_hours = ['9:00','19:00']
-person2_busy_Schedule = [['10:15','11:00'],['11:30','12:45'],['14:00','16:00']]
-person2_work_hours = ['9:00','18:30']
-duration_of_meeting = 60
-
-main()
+main(getInput("input.txt"))
