@@ -3,9 +3,9 @@ import ast
 
 def getInput(fileName):
     with open(fileName, 'r') as file:
-        input_lines = [line.strip() for line in file]
+        lines = [line.strip() for line in file]
     fixed = []
-    for i in input_lines:
+    for i in lines:
         if i.strip():
             fixed.append(i)
     return fixed
