@@ -11,6 +11,8 @@ To use the program, make sure that the input in "input.txt" is placed in the fol
 4. person 2 work schedule
 5. duration
 
+Make sure "input.txt" is in the same folder as main.py.
+
 Run the main.py script.
 
 You can find the results in "output.txt"
