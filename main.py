@@ -115,8 +115,10 @@ def main(inp):
         work = getFreeSchedules(work, busy)
         work = verifyDuration(work, duration_of_meeting)
 
-        # Append Case i in output.txt
+         # Append Case i in output.txt
         f = open("output.txt", "a")
+        if (str(work) == "[]"):
+            work = ["No times available for given duration"]
         f.write("Case: " + str(i + 1) + "\n" + str(work) + "\n\n")
         f.close()
 
