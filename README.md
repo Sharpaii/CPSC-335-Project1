@@ -1,4 +1,9 @@
-# CPSC-335-Project1 Directions
+# CPSC-335-Project1 
+Created by:
+Madeline Sharpe    Email: madeline_sharpe@csu.fullerton.edu
+Luis Andrino       Email: luispedroaa@csu.fullerton.edu
+
+# Directions
 To use the program, make sure that the input in "input.txt" is placed in the following format:
 1. person 1 busy schedule
 2. person 1 work schedule
