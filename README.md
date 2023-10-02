@@ -20,6 +20,11 @@ To use the program, make sure that the input in "input.txt" is placed in the fol
 
 \['hh:mm':'hh:mm'\]
 
+Inputs '24:00' for 'hh:mm' and blank list [] are both invalid
+
+Note that the input needs to be in military time.
+
+
 ### Other Notes
 Make sure "input.txt" is in the same folder as main.py.
 
