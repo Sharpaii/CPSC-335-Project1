@@ -13,8 +13,11 @@ To use the program, make sure that the input in "input.txt" is placed in the fol
 
 ### Acceptable formats for time
 \[\['hh:mm','hh:mm'\], \[...\]\]
+
 \['hh:mm', 'hh:mm'\]
+
 \[\['hh:mm':'hh:mm'\], \[...\]\]
+
 \['hh:mm':'hh:mm'\]
 
 ### Other Notes
